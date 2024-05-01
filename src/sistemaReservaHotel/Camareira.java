@@ -26,6 +26,16 @@ public class Camareira extends Thread {
     }
 	
 	public synchronized void limparQuarto(Quarto quarto) {
+		quarto.setEstado(EstadoQuarto.limpando);
+		
+		try {
+	        long tempoDeLimpeza = 1000; 
+	        Thread.sleep(tempoDeLimpeza);
+	    } catch (InterruptedException e) {
+	        Thread.currentThread().interrupt(); 
+	        return;
+	    }
+		
 		if (quarto.getEstado() == EstadoQuarto.sujo && quarto.getHospedes().size() > 0) {
 			quarto.setEstado(EstadoQuarto.limpo);
 			return;
