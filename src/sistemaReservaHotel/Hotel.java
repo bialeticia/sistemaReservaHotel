@@ -2,19 +2,18 @@ package sistemaReservaHotel;
 import java.util.List;
 
 public class Hotel {
+	private List<Recepcionista> recepcionistas;
 	private List<Quarto> quartos;
-
-	public Hotel(List<Quarto> quartos) {
+	private List<Quarto> quartosParaLimpeza;
+	
+	public Hotel(List<Recepcionista> recepcionistas, List<Quarto> quartos) {
+		this.recepcionistas = recepcionistas;
 		this.quartos = quartos;
 	}
-	
-	public synchronized void realizarCheckIn(List<Hospede> hospede) { 
-		for (Quarto quarto: quartos) {
-			if (quarto.disponivel()) {
-				quarto.adicionarHospede(hospede);
-				return;
-			}
+
+	public void tentarCheckIn(List<Hospede> hospedes) {
+		for (Recepcionista recepcionista: recepcionistas) {
+			recepcionista.realizarCheckIn(quartos, hospedes);
 		}
-		System.out.println("Não foi possível realizar o checkIn");
 	}
 }
