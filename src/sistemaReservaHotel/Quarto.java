@@ -20,9 +20,9 @@ public class Quarto {
 		this.estado = estado;
 	} 
 	
-	public synchronized void adicionarHospede(Hospede hospede) {
+	public synchronized void adicionarHospede(List<Hospede> hospede) {
 		if (hospedes.size() < capacidade) {
-			hospedes.add(hospede);
+			hospedes = hospede;
 			this.setEstado(EstadoQuarto.ocupado);
 		}
 	}
@@ -40,5 +40,13 @@ public class Quarto {
 		if (this.getEstado() == EstadoQuarto.sujo) {
 			this.setEstado(EstadoQuarto.limpo);
 		}
+	}
+	
+	public boolean disponivel() {
+		if(this.getEstado() == EstadoQuarto.limpo) {
+			return true;
+		}
+		
+		return false;
 	}
 }
