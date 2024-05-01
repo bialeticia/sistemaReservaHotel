@@ -1,5 +1,5 @@
 package sistemaReservaHotel;
 
 public enum EstadoQuarto {
-	ocupado, limpo, sujo, disponivel
+	ocupado, limpo, sujo, disponivel, limpando
 }

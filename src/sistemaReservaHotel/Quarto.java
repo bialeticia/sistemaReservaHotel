@@ -6,6 +6,7 @@ public class Quarto {
 	private EstadoQuarto estado = EstadoQuarto.disponivel;
 	private int capacidade = 4;
 	private List<Hospede> hospedes;
+	private SituacaoHospede situacaoHospede;
 	
 	public Quarto(int numero, EstadoQuarto estado) {
 		this.numero = numero;
@@ -45,5 +46,23 @@ public class Quarto {
 		}
 		
 		return false;
+	}
+	
+	public void sairDoQuarto() {
+		this.setSituacaoHospede(SituacaoHospede.fora);
+	}
+	
+	public void tentarVoltarAoQuarto() {
+		if (this.estado == EstadoQuarto.limpo) {
+			this.setSituacaoHospede(SituacaoHospede.quarto);
+		}
+	}
+	
+	public SituacaoHospede getSituacaoHospede() {
+		return situacaoHospede;
+	}
+
+	public void setSituacaoHospede(SituacaoHospede situacaoHospede) {
+		this.situacaoHospede = situacaoHospede;
 	}
 }

@@ -44,12 +44,10 @@ public class Recepcionista extends Thread {
 	
 	public void adicionarQuartoParaLimpeza() {
 		for (Quarto quarto: hotel.getQuartos()) {
-			for (Hospede hospede: quarto.getHospedes()) {
-				if (hospede.getSituacaoHospede() == SituacaoHospede.quarto) {
-					break;
-				}
-				hotel.setQuartosParaLimpeza(quarto);
+			if (quarto.getSituacaoHospede() == SituacaoHospede.quarto) {
+				break;
 			}
+			hotel.setQuartosParaLimpeza(quarto);
 		}
 	}
 }
