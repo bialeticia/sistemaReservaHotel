@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Quarto {
 	private int numero;
-	private EstadoQuarto estado = EstadoQuarto.limpo;
+	private EstadoQuarto estado = EstadoQuarto.disponivel;
 	private int capacidade = 4;
 	private List<Hospede> hospedes;
 	
@@ -20,9 +20,9 @@ public class Quarto {
 		this.estado = estado;
 	} 
 	
-	public synchronized void adicionarHospede(List<Hospede> hospede) {
-		if (hospedes.size() < capacidade) {
-			hospedes = hospede;
+	public synchronized void adicionarHospede(List<Hospede> hospedes) {
+		if (this.hospedes.size() < capacidade) {
+			this.hospedes = hospedes;
 			this.setEstado(EstadoQuarto.ocupado);
 		}
 	}
@@ -35,15 +35,19 @@ public class Quarto {
 		}
 	}
 	
-	
 	public synchronized void limparQuarto() {
-		if (this.getEstado() == EstadoQuarto.sujo) {
+		if (this.getEstado() == EstadoQuarto.sujo && this.hospedes.size() > 0) {
 			this.setEstado(EstadoQuarto.limpo);
+			return;
+		} 
+		if ((this.getEstado() == EstadoQuarto.sujo && this.hospedes.size() == 0)) {
+			this.setEstado(EstadoQuarto.disponivel);
+			return;
 		}
 	}
 	
 	public boolean disponivel() {
-		if(this.getEstado() == EstadoQuarto.limpo) {
+		if(this.getEstado() == EstadoQuarto.disponivel) {
 			return true;
 		}
 		
