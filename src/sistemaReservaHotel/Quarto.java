@@ -23,12 +23,22 @@ public class Quarto {
 	public synchronized void adicionarHospede(Hospede hospede) {
 		if (hospedes.size() < capacidade) {
 			hospedes.add(hospede);
-			estado = EstadoQuarto.ocupado;
+			this.setEstado(EstadoQuarto.ocupado);
 		}
 	}
 	
 	public synchronized void removerHospede(Hospede hospede) {
 		hospedes.remove(hospede);
+		
+		if (hospedes.isEmpty() && this.getEstado() == EstadoQuarto.ocupado) {
+			this.setEstado(EstadoQuarto.sujo);
+		}
 	}
 	
+	
+	public synchronized void limparQuarto() {
+		if (this.getEstado() == EstadoQuarto.sujo) {
+			this.setEstado(EstadoQuarto.limpo);
+		}
+	}
 }
