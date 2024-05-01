@@ -18,7 +18,7 @@ public class Hospede extends Thread {
             			quarto.tentarVoltarAoQuarto();
             		}
                 } 
-                Thread.sleep(1000);
+                Thread.sleep(500);
             }
         } catch (InterruptedException e) {
             System.out.println("Hospede interrompido: " + e.getMessage());
