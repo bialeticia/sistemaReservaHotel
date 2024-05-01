@@ -1,14 +1,28 @@
 package sistemaReservaHotel;
+import java.util.UUID;
 
 public class Camareira extends Thread {
-	int id;
+	UUID id = UUID.randomUUID();
+	private Hotel hotel;
 	
-	public Camareira(int id) {
-		this.id = id;
-	}
+	public Camareira(Hotel hotel) {
+        this.hotel = hotel;
+    }
 
 	public void run() {
-        
+		try {
+            while (!interrupted()) {
+                Quarto quarto = hotel.obterProximoQuartoParaLimpar();
+                if (quarto != null) {
+                    limparQuarto(quarto);
+                } else {
+                    break;
+                }
+                Thread.sleep(1000);
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Camareira interrompida: " + e.getMessage());
+        }
     }
 	
 	public synchronized void limparQuarto(Quarto quarto) {
