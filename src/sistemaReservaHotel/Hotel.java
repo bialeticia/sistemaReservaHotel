@@ -7,8 +7,9 @@ public class Hotel {
 	private List<Quarto> quartos;
 	private List<Quarto> quartosParaLimpeza;
 
-	public Hotel(List<Recepcionista> recepcionistas, List<Quarto> quartos) {
+	public Hotel(List<Recepcionista> recepcionistas, List<Camareira> camareiras, List<Quarto> quartos) {
 		this.recepcionistas = recepcionistas;
+		this.camareiras = camareiras;
 		this.quartos = quartos;
 	}
 
@@ -25,4 +26,13 @@ public class Hotel {
         
         return null;
     }
+	
+	public void setQuartosParaLimpeza(Quarto quarto) {
+		quartosParaLimpeza.add(quarto);
+	}
+
+	public List<Quarto> getQuartos() {
+		return quartos;
+	}
+	
 }
