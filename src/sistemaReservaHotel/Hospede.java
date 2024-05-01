@@ -12,10 +12,12 @@ public class Hospede extends Thread {
 		try {
             while (!interrupted()) {
             	if (Math.random() < 0.5) {
-                    quarto.sairDoQuarto();
-                } else {
-                	quarto.tentarVoltarAoQuarto();
-                }
+            		if (quarto.getSituacaoHospede() == SituacaoHospede.quarto) {
+            			quarto.sairDoQuarto();
+            		} else {
+            			quarto.tentarVoltarAoQuarto();
+            		}
+                } 
                 Thread.sleep(1000);
             }
         } catch (InterruptedException e) {
