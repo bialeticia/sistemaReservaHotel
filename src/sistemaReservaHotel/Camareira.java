@@ -10,4 +10,15 @@ public class Camareira extends Thread {
 	public void run() {
         
     }
+	
+	public synchronized void limparQuarto(Quarto quarto) {
+		if (quarto.getEstado() == EstadoQuarto.sujo && quarto.getHospedes().size() > 0) {
+			quarto.setEstado(EstadoQuarto.limpo);
+			return;
+		} 
+		if ((quarto.getEstado() == EstadoQuarto.sujo && quarto.getHospedes().size() == 0)) {
+			quarto.setEstado(EstadoQuarto.disponivel);
+			return;
+		}
+	}
 }
