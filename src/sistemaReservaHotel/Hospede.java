@@ -3,9 +3,11 @@ package sistemaReservaHotel;
 public class Hospede extends Thread {
 	private String nome;
 	private Quarto quarto;
+	private Hotel hotel;
 	
-	public Hospede(String nome) {
+	public Hospede(String nome, Hotel hotel) {
 		this.nome = nome;
+		this.hotel = hotel;
 	}
 	
 	public void run() {
@@ -24,6 +26,8 @@ public class Hospede extends Thread {
             System.out.println("Hospede interrompido: " + e.getMessage());
         }
     }
+	
+	
 	
 	public void setQuarto(Quarto quarto) {
 		this.quarto = quarto;

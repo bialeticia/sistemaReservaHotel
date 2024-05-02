@@ -2,10 +2,13 @@ package sistemaReservaHotel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.Queue;
+import java.util.LinkedList;
 
 public class Recepcionista extends Thread {
 	UUID id = UUID.randomUUID();
 	Hotel hotel;
+	private Queue<List<Hospede>> filaDeEspera = new LinkedList<>();
 	
 	public Recepcionista(Hotel hotel) {
 		this.hotel = hotel;
@@ -13,7 +16,7 @@ public class Recepcionista extends Thread {
 
 	public void run() {
 		
-    }
+	}
 	
 	public synchronized void realizarCheckIn(List<Quarto> quartos, List<Hospede> hospedes) { 
 		List<List<Hospede>> sublistaHospede = divideHospedes(hospedes);
@@ -22,12 +25,27 @@ public class Recepcionista extends Thread {
 			for (Quarto quarto: quartos) {
 				if (quarto.disponivel()) {
 					quarto.adicionarHospede(hospede);
+					defineQuarto(hospede, quarto);
 					return;
 				}
 			}
+			filaDeEspera.add(hospede);
 		}
 		
 		System.out.println("Não foi possível realizar o checkIn");
+	}
+	
+	 public synchronized void quartoFicouDisponivel(List<Quarto> quartos) {
+	        if (!filaDeEspera.isEmpty()) {
+	            List<Hospede> hospede = filaDeEspera.poll();
+	            realizarCheckIn(quartos, hospede);
+	        }
+	    }
+	
+	public void defineQuarto(List<Hospede> hospedes, Quarto quarto) {
+		for (Hospede hospede: hospedes) {
+			hospede.setQuarto(quarto);
+		}
 	}
 	
 	public List<List<Hospede>> divideHospedes(List<Hospede> hospedes) {
