@@ -9,6 +9,7 @@ public class Recepcionista extends Thread {
 	UUID id = UUID.randomUUID();
 	Hotel hotel;
 	private Queue<List<Hospede>> filaDeEspera = new LinkedList<>();
+	private List<Hospede> filaDeCheckout;
 	
 	public Recepcionista(Hotel hotel) {
 		this.hotel = hotel;
@@ -20,6 +21,8 @@ public class Recepcionista extends Thread {
             	realizarCheckIn(hotel.getHospedes());
             	Thread.sleep(500);
             	tentarCheckIn();
+            	Thread.sleep(500);
+            	realizarCheckout();
             }
         } catch (InterruptedException e) {
             System.out.println("Recepcionista interrompido: " + e.getMessage());
@@ -73,6 +76,20 @@ public class Recepcionista extends Thread {
 		}
 		
 		return sublistaHospede;
+	}
+	
+	public List<Hospede> getFilaDeCheckout() {
+		return filaDeCheckout;
+	}
+
+	public void setFilaDeCheckout(Hospede filaDeCheckout) {
+		this.filaDeCheckout.add(filaDeCheckout);
+	}
+	
+	public void realizarCheckout() {
+		if (!this.getFilaDeCheckout().isEmpty()) {
+			hotel.removeHospedes(filaDeCheckout);;
+		}
 	}
 	
 	public void adicionarQuartoParaLimpeza() {
