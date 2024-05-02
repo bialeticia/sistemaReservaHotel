@@ -15,32 +15,47 @@ public class Recepcionista extends Thread {
 	}
 
 	public void run() {
-		
+		try {
+            while (!interrupted()) {
+            	realizarCheckIn(hotel.getHospedes());
+            	Thread.sleep(500);
+            	tentarCheckIn();
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Recepcionista interrompido: " + e.getMessage());
+        }
 	}
 	
-	public synchronized void realizarCheckIn(List<Quarto> quartos, List<Hospede> hospedes) { 
+	public synchronized boolean realizarCheckIn(List<Hospede> hospedes) { 
 		List<List<Hospede>> sublistaHospede = divideHospedes(hospedes);
 		
 		for (List<Hospede> hospede: sublistaHospede) {
-			for (Quarto quarto: quartos) {
+			for (Quarto quarto: hotel.getQuartos()) {
 				if (quarto.disponivel()) {
 					quarto.adicionarHospede(hospede);
 					defineQuarto(hospede, quarto);
-					return;
+					return true;
 				}
 			}
 			filaDeEspera.add(hospede);
 		}
 		
 		System.out.println("Não foi possível realizar o checkIn");
+		return false;
 	}
 	
-	 public synchronized void quartoFicouDisponivel(List<Quarto> quartos) {
-	        if (!filaDeEspera.isEmpty()) {
-	            List<Hospede> hospede = filaDeEspera.poll();
-	            realizarCheckIn(quartos, hospede);
-	        }
-	    }
+	public synchronized void tentarCheckIn() {
+		boolean checkIn = false;
+		
+		if (!filaDeEspera.isEmpty()) {
+			List<Hospede> hospede = filaDeEspera.poll();
+			checkIn = realizarCheckIn(hospede);
+		}
+		
+		if (!checkIn) {
+			System.out.println("Reclamação: Não houveram quartos.");
+		}
+	}
 	
 	public void defineQuarto(List<Hospede> hospedes, Quarto quarto) {
 		for (Hospede hospede: hospedes) {

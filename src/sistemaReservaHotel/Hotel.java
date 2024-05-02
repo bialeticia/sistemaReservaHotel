@@ -6,16 +6,17 @@ public class Hotel {
 	private List<Camareira> camareiras;
 	private List<Quarto> quartos;
 	private List<Quarto> quartosParaLimpeza;
-
+	private List<Hospede> hospedes;
+	
 	public Hotel(List<Recepcionista> recepcionistas, List<Camareira> camareiras, List<Quarto> quartos) {
 		this.recepcionistas = recepcionistas;
 		this.camareiras = camareiras;
 		this.quartos = quartos;
 	}
 
-	public void tentarCheckIn(List<Hospede> hospedes) {
+	public void tentarCheckIn() {
 		for (Recepcionista recepcionista: recepcionistas) {
-			recepcionista.realizarCheckIn(quartos, hospedes);
+			recepcionista.realizarCheckIn(hospedes);
 		}
 	}
 	
@@ -34,5 +35,12 @@ public class Hotel {
 	public List<Quarto> getQuartos() {
 		return quartos;
 	}
-	
+
+	public List<Hospede> getHospedes() {
+		return hospedes;
+	}
+
+	public void setHospedes(List<Hospede> hospedes) {
+		this.hospedes = hospedes;
+	}
 }
