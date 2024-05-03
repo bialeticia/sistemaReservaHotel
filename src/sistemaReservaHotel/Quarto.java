@@ -29,6 +29,7 @@ public class Quarto {
 		if (this.hospedes.size() < capacidade) {
 			this.hospedes = hospedes;
 			this.setEstado(EstadoQuarto.ocupado);
+			System.out.println("Hospede adicionado ao quarto " + numero);
 		}
 	}
 	
@@ -37,6 +38,7 @@ public class Quarto {
 		
 		if (hospedes.isEmpty() && this.getEstado() == EstadoQuarto.ocupado) {
 			this.setEstado(EstadoQuarto.sujo);
+			System.out.println("Hospede removido do quarto " + numero);
 		}
 	}
 	
@@ -49,12 +51,14 @@ public class Quarto {
 	}
 	
 	public void sairDoQuarto() {
+		System.out.println("Hospede fora do quarto " + numero);
 		this.setSituacaoHospede(SituacaoHospede.fora);
 	}
 	
 	public void tentarVoltarAoQuarto() {
 		if (this.estado == EstadoQuarto.limpo) {
 			this.setSituacaoHospede(SituacaoHospede.quarto);
+			System.out.println("Hospede voltou ao quarto " + numero);
 		}
 	}
 	

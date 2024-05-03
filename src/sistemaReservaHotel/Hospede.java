@@ -22,6 +22,7 @@ public class Hospede extends Thread {
                 		}
                     } else if(Math.random() > 0.8) {
                     	hotel.realizarCheckout(this);
+                    	quarto.removerHospede(this);
                     }
             	}
                 Thread.sleep(500);

@@ -88,16 +88,16 @@ public class Recepcionista extends Thread {
 	
 	public void realizarCheckout() {
 		if (!this.getFilaDeCheckout().isEmpty()) {
-			hotel.removeHospedes(filaDeCheckout);;
+			hotel.removeHospedes(filaDeCheckout);
+			System.out.println("Checkout realizado com sucesso");
 		}
 	}
 	
 	public void adicionarQuartoParaLimpeza() {
 		for (Quarto quarto: hotel.getQuartos()) {
-			if (quarto.getSituacaoHospede() == SituacaoHospede.quarto) {
-				break;
+			if (quarto.getSituacaoHospede() == SituacaoHospede.fora) {
+				hotel.setQuartosParaLimpeza(quarto);
 			}
-			hotel.setQuartosParaLimpeza(quarto);
 		}
 	}
 }
