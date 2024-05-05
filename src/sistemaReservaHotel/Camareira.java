@@ -25,24 +25,17 @@ public class Camareira extends Thread {
         }
     }
 	
-	public synchronized void limparQuarto(Quarto quarto) {
-		quarto.setEstado(EstadoQuarto.limpando);
-		
-		try {
-	        long tempoDeLimpeza = 1000; 
-	        Thread.sleep(tempoDeLimpeza);
+	public void limparQuarto(Quarto quarto) {
+	    System.out.println("Camareira " + id + " começando a limpeza do quarto: " + quarto.getNumero());
+	    quarto.setEstado(EstadoQuarto.limpando);
+
+	    try {
+	        Thread.sleep(1000);
+	        quarto.setEstado(EstadoQuarto.limpo);
+	        System.out.println("Camareira " + id + " finalizou a limpeza do quarto: " + quarto.getNumero());
 	    } catch (InterruptedException e) {
-	        Thread.currentThread().interrupt(); 
-	        return;
+	        System.out.println("Camareira " + id + " interrompida durante a limpeza do quarto: " + quarto.getNumero());
+	        Thread.currentThread().interrupt();
 	    }
-		
-		if (quarto.getEstado() == EstadoQuarto.sujo && quarto.getHospedes().size() > 0) {
-			quarto.setEstado(EstadoQuarto.limpo);
-			return;
-		} 
-		if ((quarto.getEstado() == EstadoQuarto.sujo && quarto.getHospedes().size() == 0)) {
-			quarto.setEstado(EstadoQuarto.disponivel);
-			return;
-		}
 	}
 }

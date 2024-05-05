@@ -9,7 +9,7 @@ public class Recepcionista extends Thread {
 	UUID id = UUID.randomUUID();
 	Hotel hotel;
 	private Queue<List<Hospede>> filaDeEspera = new LinkedList<>();
-	private List<Hospede> filaDeCheckout;
+	private List<Hospede> filaDeCheckout = new ArrayList<>();
 	
 	public Recepcionista(Hotel hotel) {
 		this.hotel = hotel;
@@ -23,6 +23,8 @@ public class Recepcionista extends Thread {
             	tentarCheckIn();
             	Thread.sleep(500);
             	realizarCheckout();
+            	Thread.sleep(500);
+            	adicionarQuartoParaLimpeza();
             }
         } catch (InterruptedException e) {
             System.out.println("Recepcionista interrompido: " + e.getMessage());
@@ -49,13 +51,14 @@ public class Recepcionista extends Thread {
 	
 	public synchronized void tentarCheckIn() {
 		boolean checkIn = false;
-		
+		List<Hospede> hospede = new ArrayList<>();
 		if (!filaDeEspera.isEmpty()) {
-			List<Hospede> hospede = filaDeEspera.poll();
+			hospede = filaDeEspera.poll();
 			checkIn = realizarCheckIn(hospede);
 		}
 		
 		if (!checkIn) {
+			filaDeEspera.remove(hospede);
 			System.out.println("Reclamação: Não houveram quartos.");
 		}
 	}

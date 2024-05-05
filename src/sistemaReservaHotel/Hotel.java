@@ -1,13 +1,14 @@
 package sistemaReservaHotel;
 import java.util.List;
 import java.util.Iterator;
+import java.util.ArrayList;
 
 public class Hotel {
 	private List<Recepcionista> recepcionistas;
 	private List<Camareira> camareiras;
 	private List<Quarto> quartos;
-	private List<Quarto> quartosParaLimpeza;
-	private List<Hospede> hospedes;
+	private List<Quarto> quartosParaLimpeza = new ArrayList<>();
+	private List<Hospede> hospedes = new ArrayList<>();
 	
 	public Hotel(List<Recepcionista> recepcionistas, List<Camareira> camareiras, List<Quarto> quartos) {
 		this.recepcionistas = recepcionistas;
@@ -27,13 +28,14 @@ public class Hotel {
 		}
 	}
 	
- 	public synchronized Quarto obterProximoQuartoParaLimpar() {
-		if(!quartosParaLimpeza.isEmpty()) {
-			return quartosParaLimpeza.remove(0);
-		}
-        
-        return null;
-    }
+	public synchronized Quarto obterProximoQuartoParaLimpar() {
+	    if (!quartosParaLimpeza.isEmpty()) {
+	        Quarto quarto = quartosParaLimpeza.remove(0);
+	        System.out.println("Quarto " + quarto.getNumero() + " enviado para limpeza.");
+	        return quarto;
+	    }
+	    return null;
+	}
 	
 	public void setQuartosParaLimpeza(Quarto quarto) {
 		quartosParaLimpeza.add(quarto);

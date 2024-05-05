@@ -8,9 +8,8 @@ public class Quarto {
 	private List<Hospede> hospedes;
 	private SituacaoHospede situacaoHospede;
 	
-	public Quarto(int numero, EstadoQuarto estado) {
+	public Quarto(int numero) {
 		this.numero = numero;
-		this.estado = estado;
 	}
 
 	public EstadoQuarto getEstado() {
@@ -26,7 +25,7 @@ public class Quarto {
 	}
 
 	public synchronized void adicionarHospede(List<Hospede> hospedes) {
-		if (this.hospedes.size() < capacidade) {
+		if (hospedes.size() < capacidade) {
 			this.hospedes = hospedes;
 			this.setEstado(EstadoQuarto.ocupado);
 			System.out.println("Hospede adicionado ao quarto " + numero);
@@ -34,12 +33,16 @@ public class Quarto {
 	}
 	
 	public synchronized void removerHospede(Hospede hospede) {
-		hospedes.remove(hospede);
-		
-		if (hospedes.isEmpty() && this.getEstado() == EstadoQuarto.ocupado) {
-			this.setEstado(EstadoQuarto.sujo);
-			System.out.println("Hospede removido do quarto " + numero);
+		if (hospedes != null && !hospedes.isEmpty()) {
+			hospedes.remove(hospede);
+			
+			if (hospedes.isEmpty() && this.getEstado() == EstadoQuarto.ocupado) {
+				this.setEstado(EstadoQuarto.sujo);
+				System.out.println("Hospede removido do quarto " + numero);
+			}
+			notifyAll();
 		}
+		
 	}
 	
 	public boolean disponivel() {
@@ -51,15 +54,17 @@ public class Quarto {
 	}
 	
 	public void sairDoQuarto() {
-		System.out.println("Hospede fora do quarto " + numero);
-		this.setSituacaoHospede(SituacaoHospede.fora);
+	    System.out.println("Hospede saiu do quarto " + this.getNumero());
+	    this.setSituacaoHospede(SituacaoHospede.fora);
 	}
 	
 	public void tentarVoltarAoQuarto() {
-		if (this.estado == EstadoQuarto.limpo) {
-			this.setSituacaoHospede(SituacaoHospede.quarto);
-			System.out.println("Hospede voltou ao quarto " + numero);
-		}
+	    if (this.getEstado() == EstadoQuarto.limpo) {
+	        this.setSituacaoHospede(SituacaoHospede.quarto);
+	        System.out.println("Hospede voltou ao quarto " + this.getNumero());
+	    } else {
+	        System.out.println("Hospede não pode voltar ao quarto " + this.getNumero() + " porque ainda não está limpo");
+	    }
 	}
 	
 	public SituacaoHospede getSituacaoHospede() {
@@ -68,5 +73,9 @@ public class Quarto {
 
 	public void setSituacaoHospede(SituacaoHospede situacaoHospede) {
 		this.situacaoHospede = situacaoHospede;
+	}
+
+	public int getNumero() {
+		return numero;
 	}
 }

@@ -16,13 +16,14 @@ public class Hospede extends Thread {
             	if (quarto != null) {
             		if (Math.random() < 0.5) {
                 		if (quarto.getSituacaoHospede() == SituacaoHospede.quarto) {
-                			quarto.sairDoQuarto();
+                			quarto.sairDoQuarto(); 
                 		} else {
                 			quarto.tentarVoltarAoQuarto();
                 		}
-                    } else if(Math.random() > 0.8) {
+                    } else {
                     	hotel.realizarCheckout(this);
                     	quarto.removerHospede(this);
+//                    	quarto = null;
                     }
             	}
                 Thread.sleep(500);
@@ -34,5 +35,13 @@ public class Hospede extends Thread {
 	
 	public void setQuarto(Quarto quarto) {
 		this.quarto = quarto;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 }
