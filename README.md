@@ -23,3 +23,6 @@ O projeto é dividido nas seguintes classes principais:
 - `Hospede`: Thread que simula a vida de um hóspede no hotel.
 - `Camareira`: Thread responsável pela limpeza dos quartos.
 - `Recepcionista`: Thread que realiza o check-in e o check-out dos hóspedes.
+- `SincronizarPrints.java`: Classe auxiliar para logar as operações de forma sincronizada.
+- `SituacaoHospede.java`:  Define se o hospede está ou não no quarto.
+- `EstadoQuarto.java`:  Define o estado de ocupação e limpeza do quarto.
