@@ -16,12 +16,6 @@ public class Hotel {
 		this.quartos = quartos;
 	}
 
-	public void tentarCheckIn() {
-		for (Recepcionista recepcionista: recepcionistas) {
-			recepcionista.realizarCheckIn(hospedes);
-		}
-	}
-	
 	public void realizarCheckout(Hospede hospede) {
 		for (Recepcionista recepcionista: recepcionistas) {
 			recepcionista.setFilaDeCheckout(hospede);;
@@ -34,11 +28,13 @@ public class Hotel {
 	        System.out.println("Quarto " + quarto.getNumero() + " enviado para limpeza.");
 	        return quarto;
 	    }
-	    return null;
+	    return null; 
 	}
 	
 	public void setQuartosParaLimpeza(Quarto quarto) {
-		quartosParaLimpeza.add(quarto);
+    	if (!quartosParaLimpeza.contains(quarto)) {
+    		quartosParaLimpeza.add(quarto);
+    	}
 	}
 	
 	public List<Quarto> getQuartos() {

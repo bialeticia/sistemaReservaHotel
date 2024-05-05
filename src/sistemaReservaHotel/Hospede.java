@@ -16,14 +16,15 @@ public class Hospede extends Thread {
             	if (quarto != null) {
             		if (Math.random() < 0.5) {
                 		if (quarto.getSituacaoHospede() == SituacaoHospede.quarto) {
+                			System.out.println("Entrou aqui 1");
                 			quarto.sairDoQuarto(); 
                 		} else {
+                			System.out.println("Entrou aqui 2");
                 			quarto.tentarVoltarAoQuarto();
                 		}
                     } else {
                     	hotel.realizarCheckout(this);
                     	quarto.removerHospede(this);
-//                    	quarto = null;
                     }
             	}
                 Thread.sleep(500);

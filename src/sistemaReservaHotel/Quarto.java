@@ -28,6 +28,7 @@ public class Quarto {
 		if (hospedes.size() < capacidade) {
 			this.hospedes = hospedes;
 			this.setEstado(EstadoQuarto.ocupado);
+			this.setSituacaoHospede(SituacaoHospede.quarto);
 			System.out.println("Hospede adicionado ao quarto " + numero);
 		}
 	}

@@ -20,18 +20,18 @@ public class SistemaReserva {
 
         Hotel hotel = new Hotel(recepcionistas, camareiras, quartos);
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 1; i <= 5; i++) {
             recepcionistas.add(new Recepcionista(hotel));
         }
 
-        for (int i = 0; i < 10; i++) {
-            camareiras.add(new Camareira(hotel));
+        for (int i = 1; i <= 10; i++) {
+            camareiras.add(new Camareira(i, hotel));
         }
 
         recepcionistas.forEach(Thread::start);
         camareiras.forEach(Thread::start);
         
-        for (int j = 0; j < 4; j++) {
+        for (int j = 0; j < 10; j++) {
             int numeroDeHospedes = random.nextInt(5) + 1;
             List<Hospede> innerHospedes = new ArrayList<>();
 
