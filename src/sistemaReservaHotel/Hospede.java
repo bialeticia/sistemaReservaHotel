@@ -16,10 +16,10 @@ public class Hospede extends Thread {
             	if (quarto != null) {
             		if (Math.random() < 0.5) {
                 		if (quarto.getSituacaoHospede() == SituacaoHospede.quarto) {
-                			System.out.println("Entrou aqui 1");
+                			SincronizarPrints.log("Entrou aqui 1");
                 			quarto.sairDoQuarto(); 
                 		} else {
-                			System.out.println("Entrou aqui 2");
+                			SincronizarPrints.log("Entrou aqui 2");
                 			quarto.tentarVoltarAoQuarto();
                 		}
                     } else {
@@ -30,7 +30,7 @@ public class Hospede extends Thread {
                 Thread.sleep(500);
             }
         } catch (InterruptedException e) {
-            System.out.println("Hospede interrompido: " + e.getMessage());
+            SincronizarPrints.log("Hospede interrompido: " + e.getMessage());
         }
     }
 	

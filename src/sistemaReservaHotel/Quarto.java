@@ -29,7 +29,7 @@ public class Quarto {
 			this.hospedes = hospedes;
 			this.setEstado(EstadoQuarto.ocupado);
 			this.setSituacaoHospede(SituacaoHospede.quarto);
-			System.out.println("Hospede adicionado ao quarto " + numero);
+			SincronizarPrints.log("Hospede adicionado ao quarto " + numero);
 		}
 	}
 	
@@ -39,7 +39,7 @@ public class Quarto {
 			
 			if (hospedes.isEmpty() && this.getEstado() == EstadoQuarto.ocupado) {
 				this.setEstado(EstadoQuarto.sujo);
-				System.out.println("Hospede removido do quarto " + numero);
+				SincronizarPrints.log("Hospede removido do quarto " + numero);
 			}
 			notifyAll();
 		}
@@ -55,16 +55,16 @@ public class Quarto {
 	}
 	
 	public void sairDoQuarto() {
-	    System.out.println("Hospede saiu do quarto " + this.getNumero());
+	    SincronizarPrints.log("Hospede saiu do quarto " + this.getNumero());
 	    this.setSituacaoHospede(SituacaoHospede.fora);
 	}
 	
 	public void tentarVoltarAoQuarto() {
 	    if (this.getEstado() == EstadoQuarto.limpo) {
 	        this.setSituacaoHospede(SituacaoHospede.quarto);
-	        System.out.println("Hospede voltou ao quarto " + this.getNumero());
+	        SincronizarPrints.log("Hospede voltou ao quarto " + this.getNumero());
 	    } else {
-	        System.out.println("Hospede não pode voltar ao quarto " + this.getNumero() + " porque ainda não está limpo");
+	        SincronizarPrints.log("Hospede não pode voltar ao quarto " + this.getNumero() + " porque ainda não está limpo");
 	    }
 	}
 	

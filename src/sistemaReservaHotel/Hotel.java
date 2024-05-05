@@ -25,7 +25,7 @@ public class Hotel {
 	public synchronized Quarto obterProximoQuartoParaLimpar() {
 	    if (!quartosParaLimpeza.isEmpty()) {
 	        Quarto quarto = quartosParaLimpeza.remove(0);
-	        System.out.println("Quarto " + quarto.getNumero() + " enviado para limpeza.");
+	        SincronizarPrints.log("Quarto " + quarto.getNumero() + " enviado para limpeza.");
 	        return quarto;
 	    }
 	    return null; 

@@ -5,6 +5,7 @@ public class Camareira extends Thread {
 	private Hotel hotel;
 	
 	public Camareira(int id, Hotel hotel) {
+		this.id = id;
         this.hotel = hotel;
     }
 
@@ -15,25 +16,25 @@ public class Camareira extends Thread {
 	            if (quarto != null) {
 	                limparQuarto(quarto);
 	            } else {
-	                System.out.println("Camareira " + id + ": não encontrou quartos para limpar, aguardando mais quartos...");
+	                SincronizarPrints.log("Camareira " + id + ": não encontrou quartos para limpar, aguardando mais quartos...");
 	                Thread.sleep(2000); 
 	            }
 	        }
 	    } catch (InterruptedException e) {
-	        System.out.println("Camareira interrompida: " + e.getMessage());
+	        SincronizarPrints.log("Camareira interrompida: " + e.getMessage());
 	    }
 	}
 	
 	public synchronized void limparQuarto(Quarto quarto) {
-	    System.out.println("Camareira " + id + " começando a limpeza do quarto: " + quarto.getNumero());
+	    SincronizarPrints.log("Camareira " + id + " começando a limpeza do quarto: " + quarto.getNumero());
 	    quarto.setEstado(EstadoQuarto.limpando);
 
 	    try {
 	        Thread.sleep(1000);
 	        quarto.setEstado(EstadoQuarto.limpo);
-	        System.out.println("Camareira " + id + " finalizou a limpeza do quarto: " + quarto.getNumero());
+	        SincronizarPrints.log("Camareira " + id + " finalizou a limpeza do quarto: " + quarto.getNumero());
 	    } catch (InterruptedException e) {
-	        System.out.println("Camareira " + id + " interrompida durante a limpeza do quarto: " + quarto.getNumero());
+	        SincronizarPrints.log("Camareira " + id + " interrompida durante a limpeza do quarto: " + quarto.getNumero());
 	        Thread.currentThread().interrupt();
 	    }
 	}

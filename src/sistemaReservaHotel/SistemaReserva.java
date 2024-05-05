@@ -32,7 +32,7 @@ public class SistemaReserva {
         camareiras.forEach(Thread::start);
         
         for (int j = 0; j < 10; j++) {
-            int numeroDeHospedes = random.nextInt(5) + 1;
+            int numeroDeHospedes = random.nextInt(8) + 1;
             List<Hospede> innerHospedes = new ArrayList<>();
 
             for (int i = 0; i < numeroDeHospedes; i++) {
@@ -42,7 +42,7 @@ public class SistemaReserva {
             }
            
             hotel.setHospedes(innerHospedes); 
-            System.out.println("Lista de " + numeroDeHospedes + " hospedes adicionada ao hotel.");
+            SincronizarPrints.log("Lista de " + numeroDeHospedes + " hospedes adicionada ao hotel.");
         }
         
         hospedes.forEach(Thread::start);

@@ -27,7 +27,7 @@ public class Recepcionista extends Thread {
             	adicionarQuartosParaLimpeza();
             }
         } catch (InterruptedException e) {
-            System.out.println("Recepcionista interrompido: " + e.getMessage());
+            SincronizarPrints.log("Recepcionista interrompido: " + e.getMessage());
         }
 	}
 	
@@ -39,14 +39,14 @@ public class Recepcionista extends Thread {
 				if (quarto.disponivel()) {
 					quarto.adicionarHospede(hospede);
 					defineQuarto(hospede, quarto);
-					System.out.println("CheckIn realizado com sucesso");
+					SincronizarPrints.log("CheckIn realizado com sucesso");
 					return true;
 				}
 			}
 			filaDeEspera.add(hospede);
 		}
 		
-		System.out.println("Não foi possível realizar o checkIn");
+		SincronizarPrints.log("Não foi possível realizar o checkIn");
 		return false;
 	}
 	
@@ -60,7 +60,7 @@ public class Recepcionista extends Thread {
 		
 		if (!checkIn) {
 			filaDeEspera.remove(hospede);
-			System.out.println("Reclamação: Não houveram quartos.");
+			SincronizarPrints.log("Reclamação: Não houveram quartos.");
 		}
 	}
 	
@@ -93,7 +93,7 @@ public class Recepcionista extends Thread {
 	public synchronized void realizarCheckout() {
 		if (this.filaDeCheckout != null && !this.getFilaDeCheckout().isEmpty()) {
 			hotel.removeHospedes(filaDeCheckout);
-			System.out.println("Checkout realizado com sucesso");
+			SincronizarPrints.log("Checkout realizado com sucesso");
 		}
 	}
 	
@@ -101,7 +101,7 @@ public class Recepcionista extends Thread {
 		for (Quarto quarto: hotel.getQuartos()) {
 			if (quarto.getSituacaoHospede() == SituacaoHospede.fora) {
 				hotel.setQuartosParaLimpeza(quarto);
-				System.out.println("Quarto foi para a limpeza");
+				SincronizarPrints.log("Quarto foi para a limpeza");
 			}
 		}
 	}
